@@ -1,0 +1,26 @@
+{
+    "GLACIER IVY": {
+        "scientific_name": "Hedera helix 'Glacier'",
+        "date_acquired": null,
+        "last_watered": "2025-10-21",
+        "watering_history": [
+            "2025-10-21"
+        ],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
+    "POTHOS NEON": {
+        "scientific_name": "Epipremnum aureum 'Neon'",
+        "date_acquired": "2024-09-22",
+        "last_watered": "2025-10-21",
+        "watering_history": [
+            "2025-10-21"
+        ],
+        "light_intensity": "Medium-High",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    }
+}

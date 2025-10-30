@@ -84,9 +84,6 @@ def add_plant(plants):
         "notes": notes
     }
 
-    # Make sure plants in dictionary are sorted alphabetically by common name
-    plants = dict(sorted(plants.items(), key=lambda p: p[0].lower()))
-
     save_plants(plants)
     print(f"{common_name} added!\n")
 
@@ -136,8 +133,11 @@ def show_all_plants(plants):
     if not plants:
         print("No plants added yet.\n")
         return
+    
+    # Sort alphabetically by common name (case-insensitive)
+    sorted_plants = dict(sorted(plants.items(), key=lambda p: p[0].lower()))
 
-    for name, info in plants.items():
+    for name, info in sorted_plants.items():
         print(f"\n🍃 {name} ({info['scientific_name']})")
         print(f"   Date acquired: {info['date_acquired']}")
         print(f"   Last watered: {info['last_watered']}")
@@ -300,4 +300,4 @@ def main():
             print("Invalid choice, please try again.\n")
 
 if __name__ == "__main__":
-    main()
+    main() # (command line tracker)

@@ -1,4 +1,40 @@
 {
+    "ANTHURIUM RED": {
+        "scientific_name": "Anthurium andraeanum",
+        "date_acquired": null,
+        "last_watered": "2025-10-26",
+        "watering_history": [
+            "2025-10-26"
+        ],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.6,
+        "notes": null
+    },
+    "BASIL": {
+        "scientific_name": "Ocimum basilicum",
+        "date_acquired": "2025-10-11",
+        "last_watered": "2025-10-25",
+        "watering_history": [
+            "2025-10-25"
+        ],
+        "light_intensity": "High",
+        "light_type": "Direct",
+        "min_humidity": 0.5,
+        "notes": null
+    },
+    "FERN AUSTRAL GEM": {
+        "scientific_name": "Asplenium dimorphum x difforme",
+        "date_acquired": "2025-10-19",
+        "last_watered": "2025-10-26",
+        "watering_history": [
+            "2025-10-26"
+        ],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.5,
+        "notes": null
+    },
     "GLACIER IVY": {
         "scientific_name": "Hedera helix 'Glacier'",
         "date_acquired": null,
@@ -11,12 +47,233 @@
         "min_humidity": 0.4,
         "notes": null
     },
+    "MONSTERA PERU": {
+        "scientific_name": "Monstera karstenianum",
+        "date_acquired": "2025-10-18",
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.6,
+        "notes": null
+    },
+    "PEPEROMIA BURGUNDY RIPPLE": {
+        "scientific_name": "Peperomia caperata 'Burgundy Ripple'",
+        "date_acquired": null,
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.5,
+        "notes": null
+    },
+    "PEPEROMIA HOPE": {
+        "scientific_name": "Peperomia tetraphylla 'Hope'",
+        "date_acquired": "2025-10-18",
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": "Medium-High",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
+    "PHILODENDRON MOONLIGHT": {
+        "scientific_name": "Philodendron hederaceum 'Moonlight'",
+        "date_acquired": "2024-09-07",
+        "last_watered": "2025-10-29",
+        "watering_history": [
+            "2025-10-29"
+        ],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.5,
+        "notes": null
+    },
+    "PHILODENDRON PRINCE OF ORANGE": {
+        "scientific_name": "Philodendron erubescens 'Prince of Orange'",
+        "date_acquired": "2025-10-11",
+        "last_watered": "2025-10-26",
+        "watering_history": [
+            "2025-10-26"
+        ],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.5,
+        "notes": null
+    },
+    "PICKLE PLANT": {
+        "scientific_name": "Delosperma echinatum",
+        "date_acquired": "2025-10-11",
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": "High",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
+    "POOOPOO": {
+        "scientific_name": "",
+        "date_acquired": "",
+        "last_watered": "2025-10-28",
+        "watering_history": [
+            "2025-10-28",
+            "2025-10-28"
+        ],
+        "light_intensity": null,
+        "light_type": null,
+        "min_humidity": null,
+        "notes": ""
+    },
+    "POTHOS GLOBAL GREEN": {
+        "scientific_name": "Epipremnum aureum 'Global Green'",
+        "date_acquired": "2025-10-18",
+        "last_watered": "2025-10-25",
+        "watering_history": [
+            "2025-10-25"
+        ],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.5,
+        "notes": null
+    },
+    "POTHOS JADE": {
+        "scientific_name": "Epipremnum aureum 'Jade'",
+        "date_acquired": null,
+        "last_watered": "2025-10-28",
+        "watering_history": [
+            "2025-10-28"
+        ],
+        "light_intensity": "Low-Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
+    "POTHOS MARBLE QUEEN": {
+        "scientific_name": "Epipremnum aureum 'Marble Queen'",
+        "date_acquired": null,
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
     "POTHOS NEON": {
         "scientific_name": "Epipremnum aureum 'Neon'",
         "date_acquired": "2024-09-22",
         "last_watered": "2025-10-21",
         "watering_history": [
             "2025-10-21"
+        ],
+        "light_intensity": "Medium-High",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
+    "RUBBER TREE": {
+        "scientific_name": "Ficus elastica 'Shivereana'",
+        "date_acquired": "2025-10-26",
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": "Medium-High",
+        "light_type": "Indirect",
+        "min_humidity": 0.5,
+        "notes": null
+    },
+    "SPIDER PLANT": {
+        "scientific_name": "Chlorophytum comosum",
+        "date_acquired": null,
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.5,
+        "notes": null
+    },
+    "STRING OF PEARLS": {
+        "scientific_name": "Senecio rowleyanus",
+        "date_acquired": "2025-10-26",
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": "Medium-High",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
+    "SUCCULENT (TINY)": {
+        "scientific_name": null,
+        "date_acquired": "2025-10-12",
+        "last_watered": "2025-10-28",
+        "watering_history": [
+            "2025-10-28"
+        ],
+        "light_intensity": "High",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
+    "SYNGONIUM WHITE BUTTERFLY": {
+        "scientific_name": "Syngonium podophyllum 'White Butterfly'",
+        "date_acquired": "2025-10-12",
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": "Medium-High",
+        "light_type": "Indirect",
+        "min_humidity": 0.6,
+        "notes": null
+    },
+    "TEST PLANT": {
+        "scientific_name": "",
+        "date_acquired": "",
+        "last_watered": "2025-10-29",
+        "watering_history": [
+            "2025-10-28",
+            "2025-10-28",
+            "2025-10-29"
+        ],
+        "light_intensity": "Low",
+        "light_type": "Direct",
+        "min_humidity": 0.1,
+        "notes": ""
+    },
+    "TEST PLANT 2": {
+        "scientific_name": "",
+        "date_acquired": "",
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": null,
+        "light_type": null,
+        "min_humidity": null,
+        "notes": ""
+    },
+    "ZZ PLANT": {
+        "scientific_name": "Zamioculcas zamiifolia",
+        "date_acquired": "2025-10-26",
+        "last_watered": null,
+        "watering_history": [],
+        "light_intensity": "Low-Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
+    "POTHOS PEARLS & JADE": {
+        "scientific_name": "Epipremnum aureum 'Pearls & Jade'",
+        "date_acquired": null,
+        "last_watered": "2025-10-29",
+        "watering_history": [
+            "2025-10-29"
+        ],
+        "light_intensity": "Medium",
+        "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
+    "POTHOS SATIN": {
+        "scientific_name": "Scindapsus pictus",
+        "date_acquired": null,
+        "last_watered": "2025-10-29",
+        "watering_history": [
+            "2025-10-29"
         ],
         "light_intensity": "Medium-High",
         "light_type": "Indirect",

@@ -60,8 +60,10 @@
     "PEPEROMIA BURGUNDY RIPPLE": {
         "scientific_name": "Peperomia caperata 'Burgundy Ripple'",
         "date_acquired": null,
-        "last_watered": null,
-        "watering_history": [],
+        "last_watered": "2025-10-30",
+        "watering_history": [
+            "2025-10-30"
+        ],
         "light_intensity": "Medium",
         "light_type": "Indirect",
         "min_humidity": 0.5,
@@ -110,19 +112,6 @@
         "light_type": "Indirect",
         "min_humidity": 0.4,
         "notes": null
-    },
-    "POOOPOO": {
-        "scientific_name": "",
-        "date_acquired": "",
-        "last_watered": "2025-10-28",
-        "watering_history": [
-            "2025-10-28",
-            "2025-10-28"
-        ],
-        "light_intensity": null,
-        "light_type": null,
-        "min_humidity": null,
-        "notes": ""
     },
     "POTHOS GLOBAL GREEN": {
         "scientific_name": "Epipremnum aureum 'Global Green'",
@@ -173,8 +162,10 @@
     "RUBBER TREE": {
         "scientific_name": "Ficus elastica 'Shivereana'",
         "date_acquired": "2025-10-26",
-        "last_watered": null,
-        "watering_history": [],
+        "last_watered": "2025-10-30",
+        "watering_history": [
+            "2025-10-30"
+        ],
         "light_intensity": "Medium-High",
         "light_type": "Indirect",
         "min_humidity": 0.5,
@@ -222,30 +213,6 @@
         "min_humidity": 0.6,
         "notes": null
     },
-    "TEST PLANT": {
-        "scientific_name": "",
-        "date_acquired": "",
-        "last_watered": "2025-10-29",
-        "watering_history": [
-            "2025-10-28",
-            "2025-10-28",
-            "2025-10-29"
-        ],
-        "light_intensity": "Low",
-        "light_type": "Direct",
-        "min_humidity": 0.1,
-        "notes": ""
-    },
-    "TEST PLANT 2": {
-        "scientific_name": "",
-        "date_acquired": "",
-        "last_watered": null,
-        "watering_history": [],
-        "light_intensity": null,
-        "light_type": null,
-        "min_humidity": null,
-        "notes": ""
-    },
     "ZZ PLANT": {
         "scientific_name": "Zamioculcas zamiifolia",
         "date_acquired": "2025-10-26",
@@ -259,9 +226,10 @@
     "POTHOS PEARLS & JADE": {
         "scientific_name": "Epipremnum aureum 'Pearls & Jade'",
         "date_acquired": null,
-        "last_watered": "2025-10-29",
+        "last_watered": "2025-10-30",
         "watering_history": [
-            "2025-10-29"
+            "2025-10-29",
+            "2025-10-30"
         ],
         "light_intensity": "Medium",
         "light_type": "Indirect",
@@ -277,6 +245,18 @@
         ],
         "light_intensity": "Medium-High",
         "light_type": "Indirect",
+        "min_humidity": 0.4,
+        "notes": null
+    },
+    "TOKYO SUN": {
+        "scientific_name": "Sedum japonicum 'Tokyo Sun'",
+        "date_acquired": null,
+        "last_watered": "2025-10-30",
+        "watering_history": [
+            "2025-10-30"
+        ],
+        "light_intensity": "High",
+        "light_type": "Direct",
         "min_humidity": 0.4,
         "notes": null
     }

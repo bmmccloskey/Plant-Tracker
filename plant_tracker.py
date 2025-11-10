@@ -166,6 +166,8 @@ def show_plant(plants):
     print(f"   Minimum humidity: {info['min_humidity']}")
     print(f"   Notes: {info['notes']}\n")
 
+from datetime import datetime
+
 def sort_plants(plants):
     if not plants:
         print("No plants to sort.\n")
@@ -181,32 +183,49 @@ def sort_plants(plants):
 
     choice = input("Choose an option: ").strip()
 
-    # Define sorting key and default direction
+    # Define sorting key and type
     if choice == "1":
-        key_func = lambda p: p[1]["min_humidity"] or 0
+        key_func = lambda p: p[1].get("min_humidity") if p[1].get("min_humidity") is not None else 0
         sort_type = "Minimum humidity"
+
     elif choice == "2":
         order = ["Low", "Low-Medium", "Medium", "Medium-High", "High"]
-        key_func = lambda p: order.index(p[1]["light_intensity"]) if p[1]["light_intensity"] in order else -1
+        key_func = lambda p: order.index(p[1]["light_intensity"]) if p[1].get("light_intensity") in order else -1
         sort_type = "Light intensity"
+
     elif choice == "3":
-        key_func = lambda p: datetime.strptime(p[1]["date_acquired"], "%Y-%m-%d")
+        def parse_date_acquired(p):
+            date_str = p[1].get("date_acquired")
+            try:
+                return datetime.strptime(date_str, "%Y-%m-%d") if date_str else datetime.min
+            except (ValueError, TypeError):
+                return datetime.min
+        key_func = parse_date_acquired
         sort_type = "Date acquired"
+
     elif choice == "4":
-        key_func = lambda p: datetime.strptime(p[1]["last_watered"], "%Y-%m-%d")
+        def parse_last_watered(p):
+            date_str = p[1].get("last_watered")
+            try:
+                return datetime.strptime(date_str, "%Y-%m-%d") if date_str else datetime.min
+            except (ValueError, TypeError):
+                return datetime.min
+        key_func = parse_last_watered
         sort_type = "Last watered"
+
     else:
         print("Sorting canceled.\n")
         return
 
-    # Let user choose sort direction
+    # Sort direction
     order_choice = input("Sort ascending (A) or descending (D)? [A/D]: ").strip().upper()
     reverse = order_choice == "D"
 
-    # Ask if user wants to limit results
+    # Limit results
     limit_input = input("\nEnter the number of plants to display (or press Enter to show all): ").strip()
     limit = int(limit_input) if limit_input.isdigit() else None
 
+    # Perform sorting safely
     sorted_list = sorted(plants.items(), key=key_func, reverse=reverse)
 
     if limit is not None:
@@ -214,8 +233,8 @@ def sort_plants(plants):
 
     print(f"\n🌿 Plants sorted by {sort_type} ({'descending' if reverse else 'ascending'}):")
     for name, info in sorted_list:
-        print(f"- {name} (Humidity: {info['min_humidity']}, Light: {info['light_intensity']}, "
-              f"Acquired: {info['date_acquired']}, Last watered: {info['last_watered']})")
+        print(f"- {name} (Humidity: {info.get('min_humidity')}, Light: {info.get('light_intensity')}, "
+              f"Acquired: {info.get('date_acquired')}, Last watered: {info.get('last_watered')})")
     print()
 
 def delete_plant(plants):

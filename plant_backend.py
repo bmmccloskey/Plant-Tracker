@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 DATA_FILE = "plants.json"
 
@@ -20,7 +20,8 @@ VALID_LIGHT_TYPE = ["Direct", "Indirect"]
 
 def add_plant_gui(plants, plant_data):
     """
-    Add a plant from a dictionary.
+    Add a plant from a dictionary. If the plant already exists (same common name),
+    update its information instead of adding a duplicate.
     `plant_data` should include keys:
         common_name, scientific_name, date_acquired,
         light_intensity, light_type, min_humidity, notes
@@ -30,18 +31,26 @@ def add_plant_gui(plants, plant_data):
         raise ValueError("Common name is required")
 
     if common_name in plants:
-        raise ValueError(f"{common_name} already exists!")
-
-    plants[common_name] = {
-        "scientific_name": plant_data.get("scientific_name"),
-        "date_acquired": plant_data.get("date_acquired"),
-        "last_watered": None,
-        "watering_history": [],
-        "light_intensity": plant_data.get("light_intensity"),
-        "light_type": plant_data.get("light_type"),
-        "min_humidity": plant_data.get("min_humidity"),
-        "notes": plant_data.get("notes")
-    }
+        # Update existing plant
+        plant = plants[common_name]
+        plant["scientific_name"] = plant_data.get("scientific_name")
+        plant["date_acquired"] = plant_data.get("date_acquired")
+        plant["light_intensity"] = plant_data.get("light_intensity")
+        plant["light_type"] = plant_data.get("light_type")
+        plant["min_humidity"] = plant_data.get("min_humidity")
+        plant["notes"] = plant_data.get("notes")
+    else:
+        # Add new plant
+        plants[common_name] = {
+            "scientific_name": plant_data.get("scientific_name"),
+            "date_acquired": plant_data.get("date_acquired"),
+            "last_watered": None,
+            "watering_history": [],
+            "light_intensity": plant_data.get("light_intensity"),
+            "light_type": plant_data.get("light_type"),
+            "min_humidity": plant_data.get("min_humidity"),
+            "notes": plant_data.get("notes")
+        }
 
     # Keep dictionary sorted alphabetically
     plants = dict(sorted(plants.items(), key=lambda p: p[0].lower()))
@@ -121,6 +130,26 @@ def sort_plants_gui(plants, sort_by="common_name", reverse=False):
                 return datetime.strptime(info.get("last_watered", ""), "%Y-%m-%d")
             except Exception:
                 return datetime.min
+        elif sort_by == "needs_watering":
+            today = datetime.now()
+            try:
+                last = datetime.strptime(info.get("last_watered", ""), "%Y-%m-%d")
+            except Exception:
+                return datetime.min  # never watered = lowest priority
+
+            # Compute average interval if data exists
+            history = info.get("watering_history", [])
+            if len(history) >= 2:
+                dates = [datetime.strptime(d, "%Y-%m-%d") for d in history]
+                diffs = [(dates[i] - dates[i - 1]).days for i in range(1, len(dates))]
+                avg = sum(diffs) / len(diffs)
+                next_date = last + timedelta(days=avg)
+            else:
+                # if not enough data, treat as not needing watering soon
+                next_date = datetime.max
+
+            # earlier next_date = higher priority (so we sort by next_date)
+            return next_date
         else:
             return name.lower()
 

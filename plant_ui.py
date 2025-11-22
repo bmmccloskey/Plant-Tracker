@@ -2,23 +2,26 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import datetime, timedelta
 import re
+import webbrowser
+import urllib.parse
+import requests
 import plant_backend
 
 class PlantApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("🌿 Plant Tracker")
-        self.geometry("800x600")
+        self.geometry("800x675")
         self.configure(bg="#90bd9c")
 
         # Load plants
         self.plants = plant_backend.load_plants()
 
-        # ─── Configure Main Window Responsiveness ─────────────────────────────
+        # Configure Main Window Responsiveness
         self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
 
-        # ─── Navigation Menu (Top Row) ────────────────────────────────────────
+        # Navigation Menu (Top Row)
         menu = ttk.Frame(self)
         menu.grid(row=0, column=0, sticky="ew", pady=5, padx=10)
         # Remove column weight distribution so they don’t spread evenly
@@ -32,7 +35,7 @@ class PlantApp(tk.Tk):
         # Exit button stays pinned to the right for balance
         ttk.Button(menu, text="Exit", command=self.quit).pack(side="right", padx=5)
 
-        # ─── Container for Pages ───────────────────────────────────────────────
+        # ====== Container for Pages ======
         container = ttk.Frame(self)
         container.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
 
@@ -56,7 +59,7 @@ class PlantApp(tk.Tk):
             frame.refresh_dropdown()
         frame.tkraise()
 
-# ─── Add Plant Page ─────────────────────────────────────────────────────────────
+# ====== Add Plant Page ======
 class AddPlantPage(ttk.Frame):
     VALID_LIGHT_INTENSITY = ["Low", "Low-Medium", "Medium", "Medium-High", "High"]
     VALID_LIGHT_TYPE = ["Direct", "Indirect"]
@@ -162,14 +165,14 @@ class WaterPlantPage(ttk.Frame):
         super().__init__(parent, padding=15)
         self.controller = controller
 
-        # ── Page Header ─────────────────────────────
+        # ====== Page Header ======
         ttk.Label(
             self,
             text="🌱 Water A Plant",
             font=("Helvetica", 20, "bold")
         ).pack(pady=(10, 15))
 
-        # ── Plant Selection Card ─────────────────────
+        # ====== Plant Selection Card ======
         label = ttk.Label(self, text="🌿 Plant Selection", font=("Helvetica", 16, "bold"))
         control_card = ttk.LabelFrame(self, labelwidget=label, padding=15)
         control_card.pack(fill="x", padx=10, pady=(0, 15))
@@ -191,19 +194,42 @@ class WaterPlantPage(ttk.Frame):
         ).grid(row=0, column=2)
         control_card.columnconfigure(1, weight=1)
 
-        # ── Watering Info Card ──────────────────────
-        label_info = ttk.Label(self, text="🌿 Watering Information", font=("Helvetica", 16, "bold"))
-        info_card = ttk.LabelFrame(self, labelwidget=label_info, padding=15)
-        info_card.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+        # ====== Watering Info Card ======
+        label_watering = ttk.Label(self, text="🌿 Watering Information", font=("Helvetica", 16, "bold"))
+        watering_card = ttk.LabelFrame(self, labelwidget=label_watering, padding=15)
+        watering_card.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
-        self.last_watered_label = ttk.Label(info_card, text="🗓️ Last Watered: —", font=("Helvetica", 14))
+        self.last_watered_label = ttk.Label(watering_card, text="🗓️ Last watered: —", font=("Helvetica", 14))
         self.last_watered_label.pack(anchor="w", pady=5)
 
-        self.avg_label = ttk.Label(info_card, text="📊 Average Interval: —", font=("Helvetica", 14))
+        self.avg_label = ttk.Label(watering_card, text="📊 Average interval: —", font=("Helvetica", 14))
         self.avg_label.pack(anchor="w", pady=5)
 
-        self.next_water_label = ttk.Label(info_card, text="🌞 Next Watering: —", font=("Helvetica", 14))
+        self.next_water_label = ttk.Label(watering_card, text="⚪ Next watering: —", font=("Helvetica", 14))
         self.next_water_label.pack(anchor="w", pady=5)
+
+        # ====== Plant Details Card ======
+        label_details = ttk.Label(self, text="🌿 Details", font=("Helvetica", 16, "bold"))
+        details_card = ttk.LabelFrame(self, labelwidget=label_details, padding=15)
+        details_card.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+
+        self.scientific_name_label = ttk.Label(details_card, text="Scientific name: -", font=("Helvetica", 14))
+        self.scientific_name_label.pack(anchor="w", pady=5)
+
+        self.date_acquired_label = ttk.Label(details_card, text="Date acquired: -", font=("Helvetica", 14))
+        self.date_acquired_label.pack(anchor="w", pady=5)
+
+        self.light_intensity_label = ttk.Label(details_card, text="Light intensity: -", font=("Helvetica", 14))
+        self.light_intensity_label.pack(anchor="w", pady=5)
+
+        self.light_type_label = ttk.Label(details_card, text="Light type: -", font=("Helvetica", 14))
+        self.light_type_label.pack(anchor="w", pady=5)
+
+        self.minimum_humidity_label = ttk.Label(details_card, text="Minimum humidity: -", font=("Helvetica", 14))
+        self.minimum_humidity_label.pack(anchor="w", pady=5)
+
+        self.wiki_button = ttk.Button(details_card, text="🔗 Wikipedia Page", command=self.open_wiki)
+        self.wiki_button.pack(anchor="w", pady=10)
 
     def refresh_dropdown(self):
         """Reload plant names into dropdown and update info."""
@@ -264,6 +290,25 @@ class WaterPlantPage(ttk.Frame):
         else:
             self.next_water_label.config(text=" Next Watering: —")
 
+        # Plant Details
+        scientific_name = info.get("scientific_name") or "-"
+        self.scientific_name_label.config(text=f"Scientific name: {scientific_name}")
+
+        date_acquired = info.get("date_acquired") or "-"
+        self.date_acquired_label.config(text=f"Date acquired: {date_acquired}")
+
+        light_intensity = info.get("light_intensity") or "-"
+        self.light_intensity_label.config(text=f"Light intensity: {light_intensity}")
+
+        light_type = info.get("light_type") or "-"
+        self.light_type_label.config(text=f"Light type: {light_type}")
+
+        minimum_humidity = info.get("min_humidity") or "-"
+        self.minimum_humidity_label.config(text=f"Minimum humidity: {minimum_humidity}")
+
+        # Wiki Link
+        self.wiki_button.config(text=f"{plant_name.title()} on Wikipedia")
+
     def water_selected(self):
         """Water the selected plant and refresh info."""
         plant_name = self.dropdown.get()
@@ -278,6 +323,50 @@ class WaterPlantPage(ttk.Frame):
         except ValueError as e:
             messagebox.showerror("Error", str(e))
 
+    def open_wiki(self):
+        """Open the top Wikipedia search result for the selected plant."""
+
+        # Use scientific name for query if available, otherwise default back to common name
+        plant_info = self.controller.plants.get(self.dropdown.get().strip().upper(), {})
+        scientific_name = plant_info.get("scientific_name") or self.dropdown.get().strip()
+        
+        if not scientific_name:
+            messagebox.showerror("Error", "Choose a plant first.")
+            return
+
+        query = urllib.parse.quote(scientific_name)
+
+        search_url = (
+            "https://en.wikipedia.org/w/api.php"
+            f"?action=query&list=search&format=json&srsearch={query}"
+        )
+
+        # Wikipedia blocks requests without a User-Agent header
+        headers = {
+            "User-Agent": "PlantManagerApp/1.0 (contact: mccloskeybrynn@gmail.com)"
+        }
+
+        try:
+            response = requests.get(search_url, headers=headers)
+
+            # If response is empty or HTML, JSON parsing will fail
+            data = response.json()
+
+            results = data.get("query", {}).get("search", [])
+            if not results:
+                messagebox.showerror("Not found", f"No Wikipedia page found for '{scientific_name}'.")
+                return
+
+            # Use the first search result
+            page_title = results[0]["title"]
+            page_title_encoded = urllib.parse.quote(page_title.replace(" ", "_"))
+            final_url = f"https://en.wikipedia.org/wiki/{page_title_encoded}"
+
+            webbrowser.open(final_url)
+
+        except Exception as e:
+            messagebox.showerror("Error", f"Could not retrieve Wikipedia page.\n{e}")
+
 class ShowPlantsPage(ttk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent, padding=10)
@@ -285,7 +374,7 @@ class ShowPlantsPage(ttk.Frame):
 
         ttk.Label(self, text="🌱 All Plants", font=("Helvetica", 18, "bold")).pack(pady=10)
 
-        # --- Sorting Controls ---
+        # ====== Sorting Controls ======
         sort_frame = ttk.Frame(self)
         sort_frame.pack(pady=5)
 
@@ -311,7 +400,7 @@ class ShowPlantsPage(ttk.Frame):
 
         ttk.Button(sort_frame, text="Apply Sort", command=self.sort_and_display).pack(side="left", padx=10)
 
-        # --- Text Display ---
+        # ====== Text Display ======
         text_frame = ttk.Frame(self)
         text_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
@@ -354,7 +443,7 @@ class ShowPlantsPage(ttk.Frame):
         key = sort_key_map.get(sort_choice, "common_name")
         sorted_list = plant_backend.sort_plants_gui(self.controller.plants, sort_by=key, reverse=reverse)
 
-        # --- Filter overdue plants if "Needs watering" is selected ---
+        # ====== Filter overdue plants if "Needs watering" is selected ======
         if key == "needs_watering":
             today = datetime.now()
             filtered_list = []
